@@ -7,6 +7,7 @@ public class InputManager : MonoBehaviour
     private static InputManager _instance;
 
     private InputMappings inputMappings;
+    private bool isInventoryOpen = false;
 
     public static InputManager Instance {  get { return _instance; } }
 
@@ -24,6 +25,11 @@ public class InputManager : MonoBehaviour
         Cursor.visible = false;
     }
 
+    private void Start()
+    {
+        Inventory.OnInventoryToggle += HandleInventoryToggle; 
+    }
+
     private void OnEnable()
     {
         inputMappings.Enable();
@@ -36,11 +42,26 @@ public class InputManager : MonoBehaviour
 
     public Vector2 GetPlayerMovement()
     {
-        return inputMappings.Player.Movement.ReadValue<Vector2>();
+        return isInventoryOpen ? Vector2.zero : inputMappings.Player.Movement.ReadValue<Vector2>();
     }
 
     public Vector2 GetMouseDelta()
     {
-        return inputMappings.Player.Look.ReadValue<Vector2>();
+        return isInventoryOpen ? Vector2.zero : inputMappings.Player.Look.ReadValue<Vector2>();
+    }
+
+    public bool PlayerToggledInventory()
+    {
+        return inputMappings.Player.Inventory.triggered;
+    }
+
+    public bool PlayerClicked()
+    {
+        return inputMappings.Player.LeftClick.triggered;
+    }
+
+    private void HandleInventoryToggle(bool isOpen)
+    {
+        isInventoryOpen = isOpen;
     }
 }
