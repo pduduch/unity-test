@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     private Transform cameraTransform;
 
     [SerializeField]
-    private float playerSpeed = 20.0f;
+    private float playerSpeed = 5.0f;
 
     private void Start()
     {

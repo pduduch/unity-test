@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
+    public static InputManager Instance { get { return _instance; } }
+
     private static InputManager _instance;
 
     private InputMappings inputMappings;
     private bool isInventoryOpen = false;
-
-    public static InputManager Instance {  get { return _instance; } }
 
     private void Awake()
     {
